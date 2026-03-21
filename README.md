@@ -1,4 +1,3 @@
-cat > README.md << 'EOF'
 # Condomínios API
 
 API REST para sistema de gerenciamento de condomínio, desenvolvida com Java Spring Boot e PostgreSQL.
