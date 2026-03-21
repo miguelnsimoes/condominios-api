@@ -44,21 +44,6 @@ cp .env.example .env
 
 A API estará disponível em `http://localhost:8080`
 
-## Estrutura do projeto
-```
-src/
-├── main/java/com/condominios/
-│   ├── bloco/
-│   ├── apartamento/
-│   ├── morador/
-│   ├── encomenda/
-│   ├── pagamento/
-│   ├── reserva/
-│   ├── ocorrencia/
-│   └── config/
-└── resources/
-    └── db/migration/     ← scripts Flyway
-```
 
 ## Convenção de commits
 ```
@@ -79,5 +64,4 @@ test: adiciona ou corrige testes
 
 ## Documentação
 
-- [Decisões de arquitetura](docs/adr/)
 - [Levantamento de requisitos](docs/requisitos.md)
