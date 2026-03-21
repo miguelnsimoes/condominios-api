@@ -5,7 +5,7 @@
 
 ## Contexto
 
-Precisamos definir a stack tecnológica para o desenvolvimento do sistema de gerenciamento de condomínio, considerando que a equipe já tem experiência em programação mas não nas tecnologias específicas escolhidas.
+O projeto consiste em uma API REST para gerenciamento de condomínio, com requisito acadêmico de uso obrigatório de Java e banco de dados relacional. A equipe optou por adotar ferramentas amplamente utilizadas no mercado para garantir qualidade, manutenibilidade e aderência às boas práticas de desenvolvimento de software.
 
 ## Decisão
 
@@ -20,12 +20,11 @@ Adotamos a seguinte stack:
 
 | Alternativa | Motivo da rejeição |
 |---|---|
-| Node.js + Express | Spring Boot oferece mais estrutura para APIs REST complexas |
-| MySQL | PostgreSQL tem melhor suporte e é mais robusto |
-| Liquibase | Flyway é mais simples para equipes iniciantes |
+| MySQL | PostgreSQL tem melhor suporte a tipos avançados e é mais robusto |
+| Liquibase | Flyway é mais simples e usa SQL puro, ideal para a equipe |
 
-## Consequências
+## Restrições do projeto
 
-- A equipe precisará aprender Java e Spring Boot
-- Spring Boot reduz configuração manual com suas convenções
-- PostgreSQL exige instalação local para desenvolvimento
+- Linguagem obrigatória: **Java** (requisito da matéria de POO2)
+- Banco de dados obrigatório: **relacional** (requisito da matéria de POO2)
+- Spring Boot foi uma escolha da equipe por oferecer estrutura, convenções e produtividade para APIs REST
