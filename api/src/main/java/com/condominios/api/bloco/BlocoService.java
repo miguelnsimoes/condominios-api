@@ -19,6 +19,14 @@ public class BlocoService {
     }
 
     //criar
+    public Bloco save(Bloco bloco){
+        return blocoRepository.save(bloco);
+    }
+
+    //deletar, implementar regra de negocio pq é PK e pode dar bug
+    public void delete(Long id){
+        blocoRepository.deleteById(id);
+    }
 
 }
 

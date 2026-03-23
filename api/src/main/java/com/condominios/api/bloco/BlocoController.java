@@ -1,8 +1,6 @@
 package com.condominios.api.bloco;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,5 +17,15 @@ public class BlocoController {
     @GetMapping
     public List<Bloco> getAll(){
         return blocoService.getAll();
+    }
+
+    @PostMapping
+    public Bloco create(@RequestBody Bloco bloco){
+        return blocoService.save(bloco);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+        blocoService.delete(id);
     }
 }
