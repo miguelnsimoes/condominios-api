@@ -2,9 +2,7 @@ package com.condominios.api.pessoa;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "pessoa")
-@Inheritance(strategy = InheritanceType.JOINED)
+@MappedSuperclass
 public abstract class Pessoa {
 
     @Id

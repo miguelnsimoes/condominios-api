@@ -28,5 +28,10 @@ public class BlocoService {
         blocoRepository.deleteById(id);
     }
 
+    //achar por id
+    public Bloco findById(Long id){
+        return blocoRepository.findById(id).orElseThrow(() -> new RuntimeException("bloco nao encontrado"));
+    }
+
 }
 

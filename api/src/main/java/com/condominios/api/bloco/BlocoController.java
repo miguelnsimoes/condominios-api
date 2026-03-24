@@ -19,6 +19,11 @@ public class BlocoController {
         return blocoService.getAll();
     }
 
+    @GetMapping("/{id}")
+    public Bloco getId(@PathVariable Long id){
+        return blocoService.findById(id);
+    }
+
     @PostMapping
     public Bloco create(@RequestBody Bloco bloco){
         return blocoService.save(bloco);
