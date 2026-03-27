@@ -12,17 +12,16 @@ public class Funcionario extends Pessoa {
 
     private String cargo;
     private BigDecimal salario;
-    private String telefone;
+
 
     public Funcionario(){
         super();
     }
 
-    public Funcionario(Long id, String nome, String cpf, Integer idade, String cargo, BigDecimal salario, String telefone) {
-        super(id, nome, cpf, idade);
+    public Funcionario(String telefone, Integer idade, String nome, Long id, String cpf, String cargo, BigDecimal salario) {
+        super(telefone, idade, nome, id, cpf);
         this.cargo = cargo;
         this.salario = salario;
-        this.telefone = telefone;
     }
 
     public String getCargo() {
@@ -41,11 +40,5 @@ public class Funcionario extends Pessoa {
         this.salario = salario;
     }
 
-    public String getTelefone() {
-        return telefone;
-    }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
 }

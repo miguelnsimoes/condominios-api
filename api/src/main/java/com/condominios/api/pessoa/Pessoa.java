@@ -18,15 +18,26 @@ public abstract class Pessoa {
     @Column(nullable = false)
     private Integer idade;
 
+    @Column(nullable = false)
+    private String telefone;
+
     public Pessoa() {}
 
-    public Pessoa(Long id, String nome, String cpf, Integer idade) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
+    public Pessoa(String telefone, Integer idade, String nome, Long id, String cpf) {
+        this.telefone = telefone;
         this.idade = idade;
+        this.nome = nome;
+        this.id = id;
+        this.cpf = cpf;
     }
 
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
 
     public Integer getIdade() {
         return idade;

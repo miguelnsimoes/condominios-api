@@ -10,6 +10,7 @@ public class Bloco {
     @Column(nullable = false)
     private String nome;
 
+
     public Bloco(){
 
     }
