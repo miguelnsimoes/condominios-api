@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface FuncionarioRepository extends JpaRepository<Funcionario, List> {
+public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
 
 
 }
