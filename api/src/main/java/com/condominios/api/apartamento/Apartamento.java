@@ -1,6 +1,6 @@
 package com.condominios.api.apartamento;
 
-import com.condominios.api.bloco.Bloco;
+import  com.condominios.api.bloco.Bloco;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 public class Apartamento {
     @Id
     private Long id;
-    private Integer numero;
+    private String numero;
     @ManyToOne
     @JoinColumn(name = "bloco_id")
     private Bloco bloco;
@@ -17,7 +17,7 @@ public class Apartamento {
 
     }
 
-    public Apartamento(Bloco bloco, Long id, Integer numero) {
+    public Apartamento(Bloco bloco, Long id, String numero) {
         this.bloco = bloco;
         this.id = id;
         this.numero = numero;
@@ -39,11 +39,11 @@ public class Apartamento {
         this.id = id;
     }
 
-    public Integer getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(Integer numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 }

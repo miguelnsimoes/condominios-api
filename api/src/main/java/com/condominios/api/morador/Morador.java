@@ -1,15 +1,16 @@
 package com.condominios.api.morador;
 
+import com.condominios.api.apartamento.Apartamento;
 import com.condominios.api.pessoa.Pessoa;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Query;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "morador")
 public class Morador extends Pessoa {
 
-    private Integer apartamento;
+    @ManyToOne
+    @JoinColumn(name = "apartamento_id")
+    private Apartamento apartamento;
 
     public Morador() {
 
