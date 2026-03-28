@@ -7,11 +7,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="reserva_area",
-        uniqueConstraints = {
-            @UniqueConstraint(columnNames = {"area_id", "data"})
-        }
-    )
+@Table(name="reserva_area")
 public class ReservaArea {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

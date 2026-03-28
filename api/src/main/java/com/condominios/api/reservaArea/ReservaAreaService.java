@@ -20,10 +20,16 @@ public class ReservaAreaService {
     }
 
     public ReservaArea save(ReservaArea reservaArea){
-        return reservaAreaRepository.save(reservaArea);
+        if (reservaAreaRepository.existsByAreaComumIdAndData(reservaArea.getAreaComum().getId(), reservaArea.getData())){
+            throw new RuntimeException("Ja existe uma reserva nesse dia!");
+        }
+        else{
+            return reservaAreaRepository.save(reservaArea);
+        }
     }
 
     public void delete(Long id){
         reservaAreaRepository.deleteById(id);
     }
+
 }
