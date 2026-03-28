@@ -1,32 +1,31 @@
 package com.condominios.api.morador;
 
+import com.condominios.api.apartamento.Apartamento;
 import com.condominios.api.pessoa.Pessoa;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Query;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "morador")
 public class Morador extends Pessoa {
 
-    private Integer apartamento;
+    @ManyToOne
+    @JoinColumn(name = "apartamento_id")
+    private Apartamento apartamento;
 
     public Morador() {
 
     }
 
-    public Morador(String telefone, Integer idade, String nome, Long id, String cpf, Integer apartamento) {
+    public Morador(String telefone, Integer idade, String nome, Long id, String cpf, Apartamento apartamento) {
         super(telefone, idade, nome, id, cpf);
         this.apartamento = apartamento;
     }
 
-    public Integer getApartamento() {
+    public Apartamento getApartamento() {
         return apartamento;
     }
 
-    public void setApartamento(Integer apartamento) {
+    public void setApartamento(Apartamento apartamento) {
         this.apartamento = apartamento;
     }
-
-
 }
