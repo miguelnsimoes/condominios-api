@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 @Table
 public class Apartamento {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String numero;
     @ManyToOne

@@ -16,18 +16,16 @@ public class Morador extends Pessoa {
 
     }
 
-    public Morador(String telefone, Integer idade, String nome, Long id, String cpf, Integer apartamento) {
+    public Morador(String telefone, Integer idade, String nome, Long id, String cpf, Apartamento apartamento) {
         super(telefone, idade, nome, id, cpf);
         this.apartamento = apartamento;
     }
 
-    public Integer getApartamento() {
+    public Apartamento getApartamento() {
         return apartamento;
     }
 
-    public void setApartamento(Integer apartamento) {
+    public void setApartamento(Apartamento apartamento) {
         this.apartamento = apartamento;
     }
-
-
 }
