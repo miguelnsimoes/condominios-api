@@ -15,11 +15,13 @@ public class Encomenda {
    private Long id;
    private String descricao;
 
-   @Column(nullable = false)
-   private LocalDateTime chegada;
+   @Column(nullable = true)
+   private LocalDateTime chegada = LocalDate.now().atStartOfDay();
 
    @Column(nullable = false)
    private String status = "PENDENTE";
+
+   @Column(nullable = true)
    private LocalDateTime dataRetirada;
 
    @ManyToOne

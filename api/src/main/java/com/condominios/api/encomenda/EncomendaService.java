@@ -1,6 +1,7 @@
 package com.condominios.api.encomenda;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -29,6 +30,7 @@ public class EncomendaService {
 
     public void registrarRetirada(Encomenda encomenda, Long id){
          encomenda.setStatus("RETIRADA");
+         encomenda.setDataRetirada(LocalDateTime.now());
     }
 
 
