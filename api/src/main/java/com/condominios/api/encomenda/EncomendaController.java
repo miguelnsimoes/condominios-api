@@ -33,9 +33,9 @@ public class EncomendaController {
         encomendaService.delete(id);
     }
 
-    @PutMapping("/{id}")
-    public void alteraStatus(@PathVariable Encomenda encomenda, Long id){
-        encomendaService.registrarRetirada(encomenda, id);
+    @PutMapping("/{id}/retirada")
+    public Encomenda registrarRetirada(@PathVariable Long id){
+        return encomendaService.registrarRetirada(id);
     }
 
 }

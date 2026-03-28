@@ -4,7 +4,6 @@ import com.condominios.api.apartamento.Apartamento;
 import com.condominios.api.funcionario.Funcionario;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,16 +12,18 @@ public class Encomenda {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
-   private String descricao;
-
-   @Column(nullable = true)
-   private LocalDateTime chegada = LocalDate.now().atStartOfDay();
 
    @Column(nullable = false)
-   private String status = "PENDENTE";
+   private String descricao;
+
+   @Column(nullable = false)
+   private LocalDateTime chegada;
 
    @Column(nullable = true)
    private LocalDateTime dataRetirada;
+
+   @Column(nullable = false)
+   private String status;
 
    @ManyToOne
    @JoinColumn(name = "apartamento_id")
@@ -32,25 +33,34 @@ public class Encomenda {
    @JoinColumn(name = "funcionario_id")
    private Funcionario funcionario;
 
-   public Encomenda(){
-
+   public Encomenda() {
+      this.chegada = LocalDateTime.now();
+      this.status = "PENDENTE";
    }
 
-   public Encomenda(LocalDateTime chegada, LocalDateTime dataRetirada, String descricao, Long id, Funcionario funcionario, String status) {
-      this.chegada = chegada;
-      this.dataRetirada = dataRetirada;
-      this.descricao = descricao;
+   public Encomenda(String descricao, Apartamento apartamento, Funcionario funcionario, LocalDateTime chegada, LocalDateTime dataRetirada, String status) {
+         this.descricao = descricao;
+         this.apartamento = apartamento;
+         this.funcionario = funcionario;
+         this.chegada = (chegada != null) ? chegada : LocalDateTime.now();
+         this.dataRetirada = dataRetirada;
+         this.status = (status != null) ? status : "PENDENTE";
+   }
+
+   public Long getId() {
+      return id;
+   }
+
+   public void setId(Long id) {
       this.id = id;
-      this.funcionario = funcionario;
-      this.status = status;
    }
 
-   public Apartamento getApartamento() {
-      return apartamento;
+   public String getDescricao() {
+      return descricao;
    }
 
-   public void setApartamento(Apartamento apartamento) {
-      this.apartamento = apartamento;
+   public void setDescricao(String descricao) {
+      this.descricao = descricao;
    }
 
    public LocalDateTime getChegada() {
@@ -69,12 +79,20 @@ public class Encomenda {
       this.dataRetirada = dataRetirada;
    }
 
-   public Long getId() {
-      return id;
+   public String getStatus() {
+      return status;
    }
 
-   public void setId(Long id) {
-      this.id = id;
+   public void setStatus(String status) {
+      this.status = status;
+   }
+
+   public Apartamento getApartamento() {
+      return apartamento;
+   }
+
+   public void setApartamento(Apartamento apartamento) {
+      this.apartamento = apartamento;
    }
 
    public Funcionario getFuncionario() {
@@ -83,21 +101,5 @@ public class Encomenda {
 
    public void setFuncionario(Funcionario funcionario) {
       this.funcionario = funcionario;
-   }
-
-   public String getDescricao() {
-      return descricao;
-   }
-
-   public void setDescricao(String descricao) {
-      this.descricao = descricao;
-   }
-
-   public String getStatus() {
-      return status;
-   }
-
-   public void setStatus(String status) {
-      this.status = status;
    }
 }

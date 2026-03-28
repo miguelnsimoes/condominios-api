@@ -1,7 +1,4 @@
 package com.condominios.api.morador;
-
-import com.condominios.api.funcionario.Funcionario;
-import com.condominios.api.funcionario.FuncionarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
