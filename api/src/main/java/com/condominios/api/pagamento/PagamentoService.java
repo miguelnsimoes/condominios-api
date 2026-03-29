@@ -29,10 +29,9 @@ public class PagamentoService {
     }
 
     public Pagamento registrarPagamento(Long id){
-        Pagamento pagamento = pagamentoRepository.findById(id).orElseThrow(() -> new RuntimeException("pagamento não realizado"));
-        pagamento.setStatus("PAGO");
-        pagamento.setDataPagamento(LocalDate.now());
+        Pagamento pagamento = pagamentoRepository.findById(id).orElseThrow(() -> new RuntimeException("pagamento não encontrado"));
 
+        pagamento.setDataPagamento(LocalDate.now());
         return pagamentoRepository.save(pagamento);
     }
 }

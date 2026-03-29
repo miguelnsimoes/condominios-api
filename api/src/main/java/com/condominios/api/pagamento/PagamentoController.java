@@ -37,5 +37,4 @@ public class PagamentoController {
         return pagamentoService.registrarPagamento(id);
     }
 
-
 }
