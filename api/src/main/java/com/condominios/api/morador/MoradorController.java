@@ -1,6 +1,4 @@
 package com.condominios.api.morador;
-
-import com.condominios.api.funcionario.Funcionario;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
