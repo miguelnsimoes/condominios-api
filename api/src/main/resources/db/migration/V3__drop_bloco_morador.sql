@@ -1,0 +1,1 @@
+ALTER TABLE morador DROP COLUMN bloco_id;
