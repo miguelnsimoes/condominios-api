@@ -16,8 +16,8 @@ public class Pagamento {
     @Column(nullable = false)
     private BigDecimal valor;
 
-    @Column(nullable = false)
-    private LocalDate data_pagamento;
+    @Column(nullable = true)
+    private LocalDate dataPagamento;
 
     @Column(nullable = false)
     private String status;
@@ -27,24 +27,23 @@ public class Pagamento {
     private Morador morador;
 
     public Pagamento(){
-        this.data_pagamento = LocalDate.now();
         this.status = "PENDENTE";
     }
 
-    public Pagamento(BigDecimal valor, String status, Morador morador, Long id, LocalDate data_pagamento) {
+    public Pagamento(BigDecimal valor, String status, Morador morador, Long id, LocalDate dataPagamento) {
         this.valor = valor;
         this.status = status;
         this.morador = morador;
         this.id = id;
-        this.data_pagamento = data_pagamento;
+        this.dataPagamento = dataPagamento;
     }
 
-    public LocalDate getData_pagamento() {
-        return data_pagamento;
+    public LocalDate getDataPagamento() {
+        return dataPagamento;
     }
 
-    public void setData_pagamento(LocalDate data_pagamento) {
-        this.data_pagamento = data_pagamento;
+    public void setDataPagamento(LocalDate dataPagamento) {
+        this.dataPagamento = dataPagamento;
     }
 
     public Long getId() {
