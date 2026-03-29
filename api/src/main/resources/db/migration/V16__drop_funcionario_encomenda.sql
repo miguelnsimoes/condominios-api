@@ -1,1 +1,0 @@
-ALTER TABLE encomenda DROP COLUMN funcionario;
