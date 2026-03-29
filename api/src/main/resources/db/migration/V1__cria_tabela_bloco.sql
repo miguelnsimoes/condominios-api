@@ -1,4 +1,0 @@
-CREATE TABLE bloco (
-    id BIGSERIAL PRIMARY KEY,
-    nome VARCHAR(50) NOT NULL
-);

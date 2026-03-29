@@ -1,1 +1,0 @@
-ALTER TABLE funcionario ADD COLUMN cargo VARCHAR(100);
