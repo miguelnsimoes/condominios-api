@@ -23,11 +23,26 @@ public class Pagamento {
     @Column(nullable = false)
     private LocalDate dataVencimento;
 
+    @Column(nullable = false)
+    private String referencia;
+
     @ManyToOne
     @JoinColumn(name = "morador_id")
     private Morador morador;
 
     public Pagamento() {
+
+    }
+    //pra referenciar o mes de pagamento
+    @PrePersist
+    public void prePersist(){
+        if(this.dataVencimento == null){
+            this.dataVencimento = LocalDate.now().plusDays(30);
+        }
+
+        if(this.referencia == null){
+            this.referencia = LocalDate.now().getYear() + "-" + String.format("%02d", LocalDate.now().getMonthValue());
+        }
     }
 
     public Pagamento(BigDecimal valor, Morador morador, LocalDate dataPagamento, LocalDate dataVencimento) {
@@ -49,8 +64,20 @@ public class Pagamento {
         return StatusPagamento.PENDENTE;
     }
 
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public BigDecimal getValor() {
