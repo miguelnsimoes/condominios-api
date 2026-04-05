@@ -1,1 +1,0 @@
-ALTER TABLE pagamento ADD COLUMN referencia VARCHAR(7);
