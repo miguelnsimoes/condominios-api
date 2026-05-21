@@ -1,5 +1,6 @@
 package com.condominios.api.bloco;
 import com.condominios.api.apartamento.Apartamento;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class Bloco {
     private String nome;
 
     @OneToMany(mappedBy = "bloco")
+    @JsonManagedReference
     private List<Apartamento> apartamento;
 
     public Bloco(){
