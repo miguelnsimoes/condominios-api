@@ -13,7 +13,6 @@ public class AreaComumController {
         this.areaComumService = areaComumService;
     }
 
-
     @GetMapping
     public List<AreaComum> getAll(){
         return areaComumService.getAll();
@@ -29,9 +28,13 @@ public class AreaComumController {
         return areaComumService.save(areaComum);
     }
 
+    @PutMapping("/{id}")
+    public AreaComum update(@PathVariable Long id, @RequestBody AreaComum areaComum) {
+        return areaComumService.update(id, areaComum);
+    }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         areaComumService.delete(id);
     }
-
 }

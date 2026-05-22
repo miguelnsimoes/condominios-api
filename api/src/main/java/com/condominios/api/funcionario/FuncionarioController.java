@@ -14,7 +14,6 @@ public class FuncionarioController {
         this.funcionarioService = funcionarioService;
     }
 
-
     @GetMapping
     public List<Funcionario> getAll(){
         return funcionarioService.getAll();
@@ -28,6 +27,11 @@ public class FuncionarioController {
     @PostMapping
     public Funcionario create(@RequestBody Funcionario funcionario){
         return funcionarioService.save(funcionario);
+    }
+
+    @PutMapping("/{id}")
+    public Funcionario update(@PathVariable Long id, @RequestBody Funcionario funcionario) {
+        return funcionarioService.update(id, funcionario);
     }
 
     @DeleteMapping("/{id}")

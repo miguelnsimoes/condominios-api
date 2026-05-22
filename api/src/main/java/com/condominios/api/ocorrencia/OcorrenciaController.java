@@ -28,6 +28,11 @@ public class OcorrenciaController {
         return ocorrenciaService.save(ocorrencia);
     }
 
+    @PutMapping("/{id}")
+    public Ocorrencia update(@PathVariable Long id, @RequestBody Ocorrencia ocorrencia) {
+        return ocorrenciaService.update(id, ocorrencia);
+    }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         ocorrenciaService.delete(id);

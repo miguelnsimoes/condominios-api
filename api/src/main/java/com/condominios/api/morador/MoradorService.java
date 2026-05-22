@@ -2,6 +2,7 @@ package com.condominios.api.morador;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class MoradorService {
 
@@ -27,4 +28,8 @@ public class MoradorService {
         moradorRepository.deleteById(id);
     }
 
+    public Morador update(Long id, Morador moradorAtualizado) {
+        Morador moradorExistente = findById(id);
+        return moradorRepository.save(moradorExistente);
+    }
 }

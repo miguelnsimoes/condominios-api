@@ -28,4 +28,9 @@ public class OcorrenciaService {
     public void delete(Long id) {
         ocorrenciaRepository.deleteById(id);
     }
+
+    public Ocorrencia update(Long id, Ocorrencia ocorrenciaAtualizada) {
+        Ocorrencia ocorrenciaExistente = findById(id);
+        return ocorrenciaRepository.save(ocorrenciaExistente);
+    }
 }

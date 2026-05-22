@@ -13,7 +13,6 @@ public class MoradorController {
         this.moradorService = moradorService;
     }
 
-
     @GetMapping
     public List<Morador> getAll(){
         return moradorService.getAll();
@@ -29,9 +28,13 @@ public class MoradorController {
         return moradorService.save(morador);
     }
 
+    @PutMapping("/{id}")
+    public Morador update(@PathVariable Long id, @RequestBody Morador morador) {
+        return moradorService.update(id, morador);
+    }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){
         moradorService.delete(id);
     }
-
 }

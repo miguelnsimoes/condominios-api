@@ -3,6 +3,7 @@ package com.condominios.api.apartamento;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 @RequestMapping("/apartamentos")
 public class ApartamentoController {
@@ -11,7 +12,6 @@ public class ApartamentoController {
     public ApartamentoController(ApartamentoService apartamentoService) {
         this.apartamentoService = apartamentoService;
     }
-
 
     @GetMapping
     public List<Apartamento> getAll(){
@@ -26,6 +26,11 @@ public class ApartamentoController {
     @PostMapping
     public Apartamento create(@RequestBody Apartamento apartamento){
         return apartamentoService.save(apartamento);
+    }
+
+    @PutMapping("/{id}")
+    public Apartamento update(@PathVariable Long id, @RequestBody Apartamento apartamento) {
+        return apartamentoService.update(id, apartamento);
     }
 
     @DeleteMapping("/{id}")
