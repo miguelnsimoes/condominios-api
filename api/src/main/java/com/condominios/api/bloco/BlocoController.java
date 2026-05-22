@@ -33,4 +33,9 @@ public class BlocoController {
     public void delete(@PathVariable Long id){
         blocoService.delete(id);
     }
+
+    @PutMapping("/{id}")
+    public Bloco update(@PathVariable Long id, @RequestBody Bloco bloco) {
+        return blocoService.update(id, bloco);
+    }
 }
