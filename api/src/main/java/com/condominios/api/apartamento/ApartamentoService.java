@@ -33,4 +33,8 @@ public class ApartamentoService {
         Apartamento apartamentoExistente = findById(id);
         return apartamentoRepository.save(apartamentoExistente);
     }
+
+    public List<Apartamento> findByBlocoId(Long blocoId){
+        return apartamentoRepository.findByBlocoId(blocoId);
+    }
 }
