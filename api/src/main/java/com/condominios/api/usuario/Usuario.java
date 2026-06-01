@@ -8,23 +8,22 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-@Table(name = "usuario")
+@Table(name = "users")
 @Entity(name = "usuario")
 
 
 public class Usuario implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //aqui eu estou passando para o meu codigo como ele deve gerar o meu ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String login;
     private String senha;
-    @Enumerated(EnumType.STRING)// por padrao o java utilizar ordinal, ou seja as minhas roles vao estar em ordem numerica de chegada
-    //adicionando o enumerated, eu faco com que ao contrario de adm = 2, adm sera "adm", util para a persistencia do banco de dados.
+    @Enumerated(EnumType.STRING)
     private UsuarioRole role;
 
 
-    public Usuario(String login, String senha, UsuarioRole role) { //esse construtor eh utilizado ara quando eu for registrar o usuario, pois eu nao preciso de id nessa hora
+    public Usuario(String login, String senha, UsuarioRole role) {
         this.login = login;
         this.senha = senha;
         this.role = role;
@@ -45,7 +44,6 @@ public class Usuario implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new org.springframework.security.core.authority.SimpleGrantedAuthority("ROLE_" + this.role.name()));
-        //eu utilizei essa formatacao de "ROLE_" + para q eu nao precise colocoar role em todos os meus cargos
     }
 
     @Override
@@ -65,10 +63,6 @@ public class Usuario implements UserDetails {
         this.senha = senha;
         this.role = role;
     }
-
-    //toda essa parte eh utilizada para verificar se o usuario esta com a conta
-    //fechada, expirada, fechada ou se esta enable para ser autenticada, para simplificar
-    // no momento vou deixar todos os retornos true, depois vou fazer a logica verdadeira de autenticacao.
 
     public Long getId() {
         return id;

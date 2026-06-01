@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController // para falar para o spring que essa classe eh um controller rest
-@RequestMapping("auth") //aqui eu falo para o spring qual endpoint esse controller vai ser chamado
+@RestController
+@RequestMapping("auth")
 
 public class AuthenticationController {
     @Autowired
@@ -25,7 +25,7 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
-    @PostMapping("/login") // aqui eu falo q eh um endpoint do tipo Post, em que o usuario vai fazer um login.
+    @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
       var usuarioSenha = new UsernamePasswordAuthenticationToken(data.login(), data.senha());
       var auth = this.authenticationManager.authenticate(usuarioSenha);
@@ -36,11 +36,11 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody @Valid RegisterDTO data) { //aqui eu utilizo registerDTO, pq na classe record authentication dto, eu nao passo a role, apenas login e senha.
-        if(this.repository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();  //essa linha eh utilizada para verificar se o nome do usuario que vai ser registrado ja existe no banco de dados, caso ja existe ele responde com um badrequest.
+    public ResponseEntity register(@RequestBody @Valid RegisterDTO data) {
+        if(this.repository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 
-         String encryptedPassword = new BCryptPasswordEncoder().encode(data.senha());  //aqui a senha foi criptografada utilizando o algoritmo hash blowfish
-         Usuario newUser = new Usuario(data.login(), encryptedPassword, data.role());  //aqui eu estou criando/registrando o usuario novo, passando o login, senha criptografada e a role desse usuario.
+         String encryptedPassword = new BCryptPasswordEncoder().encode(data.senha());
+         Usuario newUser = new Usuario(data.login(), encryptedPassword, data.role());
 
             this.repository.save(newUser);
 

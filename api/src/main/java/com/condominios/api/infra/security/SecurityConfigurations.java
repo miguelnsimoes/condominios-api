@@ -18,28 +18,35 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import static com.condominios.api.usuario.UsuarioRole.ADM;
 
-@Configuration // vai falar para o Spring que essa eh uma classe da configuracao
-@EnableWebSecurity // aqui eu falo para o spring liberar a configuracao do websecurity
+@Configuration
+@EnableWebSecurity
 
 
 public class SecurityConfigurations {
     @Autowired
     SecurityFilter securityFilter;
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {   // aqui eu vou decidir os filtros para as minhas requisicoes
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //aqui vou ativar a autenticacao stateless, ou seja eu nao vou guardar a sessao do usuario, vou passar um token para ele
-                .authorizeHttpRequests(authorize -> authorize   //agora vou fazer as autorizacoes  ||  aqui eu vou falar quais sao as minhas requisicoes http que eu quero que seja autenticadas
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authorize -> authorize
+
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/blocos", "/apartamentos", "/areas-comuns").hasAnyRole("ADM", "FUNCIONARIO", "MORADOR")
                         .requestMatchers("/blocos", "/apartamentos", "/areas-comuns").hasRole("ADM")
-                        .requestMatchers("/usuarios").hasRole("ADM") // ADM faz tudo com usuários
+                        .requestMatchers("/usuarios").hasRole("ADM")
                         .requestMatchers(HttpMethod.GET, "/moradores").hasAnyRole("ADM", "FUNCIONARIO", "MORADOR")
-                        .requestMatchers(HttpMethod.PUT, "/moradores").hasAnyRole("ADM", "MORADOR") // Morador edita o próprio
-                        .requestMatchers("/moradores").hasRole("ADM") // POST e DELETE sobra pro ADM
+                        .requestMatchers(HttpMethod.PUT, "/moradores").hasAnyRole("ADM", "MORADOR")
+                        .requestMatchers("/moradores").hasRole("ADM")
                         .requestMatchers(HttpMethod.GET, "/funcionarios").hasAnyRole("ADM", "FUNCIONARIO")
-                        .requestMatchers("/funcionarios").hasRole("ADM") // O resto sobra pro ADM
+                        .requestMatchers("/funcionarios").hasRole("ADM")
                         .requestMatchers(HttpMethod.GET, "/encomendas").hasAnyRole("ADM", "FUNCIONARIO", "MORADOR")
                         .requestMatchers(HttpMethod.POST, "/encomendas").hasRole("FUNCIONARIO")
                         .requestMatchers(HttpMethod.PUT, "/encomendas").hasAnyRole("ADM", "FUNCIONARIO")
@@ -53,8 +60,8 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.DELETE, "/reserva-area").hasAnyRole("ADM", "MORADOR")
                         .requestMatchers(HttpMethod.PUT, "/reserva-area").hasRole("ADM")
                         .requestMatchers(HttpMethod.GET, "/pagamentos").hasAnyRole("ADM", "MORADOR")
-                        .requestMatchers("/pagamentos").hasRole("ADM") // POST, PUT e DELETE só ADM
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll() //aqui eh o endpoint do login, por isso eu preciso liberar para todas as pessoas o acesso a esse endpoint(justamanete pq antes de ser autenticado, eh necessario fazer o login)
+                        .requestMatchers("/pagamentos").hasRole("ADM")
+                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -64,7 +71,7 @@ public class SecurityConfigurations {
 
 
     }
-    @Bean //aqui eu estou falando para o spring que esse authenticatorManager pode ser chamado por outras partes do codigo
+    @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }

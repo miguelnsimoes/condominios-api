@@ -29,4 +29,8 @@ public class FuncionarioService {
         funcionarioRepository.deleteById(id);
     }
 
+    public Funcionario update(Long id, Funcionario funcionarioAtualizado) {
+        Funcionario funcionarioExistente = findById(id);
+        return funcionarioRepository.save(funcionarioExistente);
+    }
 }

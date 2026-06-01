@@ -13,25 +13,35 @@ public class BlocoService {
         this.blocoRepository = blocoRepository;
     }
 
-    //listar
     public List<Bloco> getAll(){
         return blocoRepository.findAll();
     }
 
-    //criar
     public Bloco save(Bloco bloco){
         return blocoRepository.save(bloco);
     }
 
-    //deletar, implementar regra de negocio pq é PK e pode dar bug
     public void delete(Long id){
+        Bloco bloco = findById(id);
+
+        if (bloco.getApartamentos() != null && !bloco.getApartamentos().isEmpty()) {
+            throw new RuntimeException("Não é possível deletar o bloco porque existem apartamentos vinculados a ele.");
+        }
+
         blocoRepository.deleteById(id);
     }
 
-    //achar por id
     public Bloco findById(Long id){
         return blocoRepository.findById(id).orElseThrow(() -> new RuntimeException("bloco nao encontrado"));
     }
+
+    public Bloco update(Long id, Bloco blocoAtualizado) {
+        Bloco blocoExistente = findById(id);
+        blocoExistente.setNome(blocoAtualizado.getNome());
+        return blocoRepository.save(blocoExistente);
+    }
+
+
 
 }
 

@@ -1,5 +1,6 @@
 package com.condominios.api.bloco;
 import com.condominios.api.apartamento.Apartamento;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -14,14 +15,15 @@ public class Bloco {
     private String nome;
 
     @OneToMany(mappedBy = "bloco")
-    private List<Apartamento> apartamento;
+    @JsonManagedReference
+    private List<Apartamento> apartamentos;
 
     public Bloco(){
 
     }
 
-    public Bloco(List<Apartamento> apartamento, String nome, Long id) {
-        this.apartamento = apartamento;
+    public Bloco(List<Apartamento> apartamentos, String nome, Long id) {
+        this.apartamentos = apartamentos;
         this.nome = nome;
         this.id = id;
     }
@@ -35,18 +37,18 @@ public class Bloco {
     }
 
     public String getNome() {
-        return nome; 
+        return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public List<Apartamento> getApartamento() {
-        return apartamento;
+    public List<Apartamento> getApartamentos() {
+        return apartamentos;
     }
 
-    public void setApartamento(List<Apartamento> apartamento) {
-        this.apartamento = apartamento;
+    public void setApartamentos(List<Apartamento> apartamentos) {
+        this.apartamentos = apartamentos;
     }
 }
