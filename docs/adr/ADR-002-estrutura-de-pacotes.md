@@ -12,6 +12,7 @@ Com múltiplas entidades no sistema (Bloco, Apartamento, Morador, Encomenda, Pag
 Adotamos organização **por feature (domínio)**, não por camada técnica.
 
 Cada funcionalidade agrupa seus próprios arquivos em um único pacote:
+
 ```
 com.condominios.api/
 ├── bloco/
@@ -29,9 +30,11 @@ com.condominios.api/
 
 ## Alternativas consideradas
 
-| Alternativa | Motivo da rejeição |
-|---|---|
+
+| Alternativa                                                 | Motivo da rejeição                                                                                     |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | Por camada técnica (controllers/, services/, repositories/) | Dificulta localizar todos os arquivos de uma funcionalidade, que ficam espalhados em pastas diferentes |
+
 
 ## Consequências
 
@@ -39,3 +42,4 @@ com.condominios.api/
 - Facilita o trabalho paralelo sem conflitos entre membros do time
 - Escala bem conforme o projeto cresce com novas entidades
 - Padrão amplamente adotado em projetos Spring Boot profissionais
+
