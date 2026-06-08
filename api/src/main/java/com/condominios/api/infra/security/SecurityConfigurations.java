@@ -47,6 +47,7 @@ public class SecurityConfigurations {
                         .requestMatchers("/moradores").hasRole("ADM")
                         .requestMatchers(HttpMethod.GET, "/funcionarios").hasAnyRole("ADM", "FUNCIONARIO")
                         .requestMatchers("/funcionarios").hasRole("ADM")
+                        .requestMatchers(HttpMethod.GET, "/relatorios/**").hasAnyRole("ADM", "FUNCIONARIO", "MORADOR")
                         .requestMatchers(HttpMethod.GET, "/encomendas").hasAnyRole("ADM", "FUNCIONARIO", "MORADOR")
                         .requestMatchers(HttpMethod.POST, "/encomendas").hasRole("FUNCIONARIO")
                         .requestMatchers(HttpMethod.PUT, "/encomendas").hasAnyRole("ADM", "FUNCIONARIO")
