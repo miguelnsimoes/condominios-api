@@ -14,7 +14,10 @@ public class ApartamentoController {
     }
 
     @GetMapping
-    public List<Apartamento> getAll(){
+    public List<Apartamento> getAll(@RequestParam(required = false) Long blocoId){
+        if (blocoId != null) {
+            return apartamentoService.findByBlocoId(blocoId);
+        }
         return apartamentoService.getAll();
     }
 

@@ -1,5 +1,6 @@
 package com.condominios.api.funcionario;
 
+import com.condominios.api.infra.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,24 +14,31 @@ public class FuncionarioService {
         this.funcionarioRepository = funcionarioRepository;
     }
 
-    public List<Funcionario> getAll(){
+    public List<Funcionario> getAll() {
         return funcionarioRepository.findAll();
     }
 
-    public Funcionario findById(Long id){
-        return funcionarioRepository.findById(id).orElseThrow(() -> new RuntimeException("funcionario nao encontrado"));
+    public Funcionario findById(Long id) {
+        return funcionarioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Funcionário não encontrado"));
     }
 
-    public Funcionario save(Funcionario funcionario){
+    public Funcionario save(Funcionario funcionario) {
         return funcionarioRepository.save(funcionario);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         funcionarioRepository.deleteById(id);
     }
 
     public Funcionario update(Long id, Funcionario funcionarioAtualizado) {
         Funcionario funcionarioExistente = findById(id);
+        funcionarioExistente.setNome(funcionarioAtualizado.getNome());
+        funcionarioExistente.setCpf(funcionarioAtualizado.getCpf());
+        funcionarioExistente.setTelefone(funcionarioAtualizado.getTelefone());
+        funcionarioExistente.setIdade(funcionarioAtualizado.getIdade());
+        funcionarioExistente.setCargo(funcionarioAtualizado.getCargo());
+        funcionarioExistente.setSalario(funcionarioAtualizado.getSalario());
         return funcionarioRepository.save(funcionarioExistente);
     }
 }

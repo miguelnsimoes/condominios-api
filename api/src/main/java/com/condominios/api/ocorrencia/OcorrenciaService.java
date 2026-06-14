@@ -1,6 +1,8 @@
 package com.condominios.api.ocorrencia;
 
+import com.condominios.api.infra.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -18,7 +20,7 @@ public class OcorrenciaService {
 
     public Ocorrencia findById(Long id) {
         return ocorrenciaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ocorrência não encontrada"));
+                .orElseThrow(() -> new ResourceNotFoundException("Ocorrência não encontrada"));
     }
 
     public Ocorrencia save(Ocorrencia ocorrencia) {
@@ -31,6 +33,12 @@ public class OcorrenciaService {
 
     public Ocorrencia update(Long id, Ocorrencia ocorrenciaAtualizada) {
         Ocorrencia ocorrenciaExistente = findById(id);
+        ocorrenciaExistente.setTitulo(ocorrenciaAtualizada.getTitulo());
+        ocorrenciaExistente.setDescricao(ocorrenciaAtualizada.getDescricao());
+        ocorrenciaExistente.setStatus(ocorrenciaAtualizada.getStatus());
+        if (ocorrenciaAtualizada.getMorador() != null) {
+            ocorrenciaExistente.setMorador(ocorrenciaAtualizada.getMorador());
+        }
         return ocorrenciaRepository.save(ocorrenciaExistente);
     }
 }

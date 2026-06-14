@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-@Table(name = "users")
+@Table(name = "usuario")
 @Entity(name = "usuario")
 
 

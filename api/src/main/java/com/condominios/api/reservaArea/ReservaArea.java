@@ -5,14 +5,23 @@ import com.condominios.api.morador.Morador;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
-@Table(name="reserva_area")
+@Table(name = "reserva_area")
 public class ReservaArea {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private LocalDate data;
+
+    @Column(name = "hora_inicio", nullable = false)
+    private LocalTime horaInicio;
+
+    @Column(name = "hora_fim", nullable = false)
+    private LocalTime horaFim;
 
     @ManyToOne
     @JoinColumn(name = "area_id")
@@ -22,14 +31,7 @@ public class ReservaArea {
     @JoinColumn(name = "morador_id")
     private Morador morador;
 
-    public ReservaArea(){
-
-    }
-
-    public ReservaArea(LocalDate data, Long id, Morador morador) {
-        this.data = data;
-        this.id = id;
-        this.morador = morador;
+    public ReservaArea() {
     }
 
     public AreaComum getAreaComum() {
@@ -46,6 +48,22 @@ public class ReservaArea {
 
     public void setData(LocalDate data) {
         this.data = data;
+    }
+
+    public LocalTime getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(LocalTime horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public LocalTime getHoraFim() {
+        return horaFim;
+    }
+
+    public void setHoraFim(LocalTime horaFim) {
+        this.horaFim = horaFim;
     }
 
     public Long getId() {
