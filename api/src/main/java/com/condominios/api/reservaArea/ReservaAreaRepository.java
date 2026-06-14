@@ -4,9 +4,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Repository
 public interface ReservaAreaRepository extends JpaRepository<ReservaArea, Long> {
 
-    boolean existsByAreaComumIdAndData(Long areaId, LocalDate data);
+    boolean existsByAreaComumIdAndDataAndHoraInicioAndHoraFim(
+            Long areaId, LocalDate data, LocalTime horaInicio, LocalTime horaFim);
 }

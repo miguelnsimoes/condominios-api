@@ -14,7 +14,10 @@ public class MoradorController {
     }
 
     @GetMapping
-    public List<Morador> getAll(){
+    public List<Morador> getAll(@RequestParam(required = false) Long apartamentoId){
+        if (apartamentoId != null) {
+            return moradorService.findByApartamentoId(apartamentoId);
+        }
         return moradorService.getAll();
     }
 
