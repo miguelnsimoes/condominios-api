@@ -12,4 +12,6 @@ public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
     boolean existsByMoradorAndReferencia(Morador morador, String referencia);
 
     List<Pagamento> findByDataPagamentoIsNotNull();
+
+    void deleteByMorador_Id(Long moradorId);
 }

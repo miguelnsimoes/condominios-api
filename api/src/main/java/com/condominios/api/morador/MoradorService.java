@@ -3,7 +3,11 @@ package com.condominios.api.morador;
 import com.condominios.api.apartamento.ApartamentoRepository;
 import com.condominios.api.infra.exception.BusinessException;
 import com.condominios.api.infra.exception.ResourceNotFoundException;
+import com.condominios.api.ocorrencia.OcorrenciaRepository;
+import com.condominios.api.pagamento.PagamentoRepository;
+import com.condominios.api.reservaArea.ReservaAreaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,10 +16,21 @@ public class MoradorService {
 
     private final MoradorRepository moradorRepository;
     private final ApartamentoRepository apartamentoRepository;
+    private final PagamentoRepository pagamentoRepository;
+    private final OcorrenciaRepository ocorrenciaRepository;
+    private final ReservaAreaRepository reservaAreaRepository;
 
-    public MoradorService(MoradorRepository moradorRepository, ApartamentoRepository apartamentoRepository) {
+    public MoradorService(
+            MoradorRepository moradorRepository,
+            ApartamentoRepository apartamentoRepository,
+            PagamentoRepository pagamentoRepository,
+            OcorrenciaRepository ocorrenciaRepository,
+            ReservaAreaRepository reservaAreaRepository) {
         this.moradorRepository = moradorRepository;
         this.apartamentoRepository = apartamentoRepository;
+        this.pagamentoRepository = pagamentoRepository;
+        this.ocorrenciaRepository = ocorrenciaRepository;
+        this.reservaAreaRepository = reservaAreaRepository;
     }
 
     public List<Morador> getAll() {
@@ -37,7 +52,12 @@ public class MoradorService {
         return moradorRepository.save(morador);
     }
 
+    @Transactional
     public void delete(Long id) {
+        findById(id);
+        pagamentoRepository.deleteByMorador_Id(id);
+        ocorrenciaRepository.deleteByMorador_Id(id);
+        reservaAreaRepository.deleteByMorador_Id(id);
         moradorRepository.deleteById(id);
     }
 

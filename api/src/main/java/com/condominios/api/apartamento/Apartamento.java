@@ -1,7 +1,7 @@
 package com.condominios.api.apartamento;
 
 import  com.condominios.api.bloco.Bloco;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,7 +13,7 @@ public class Apartamento {
     private String numero;
     @ManyToOne
     @JoinColumn(name = "bloco_id")
-    @JsonBackReference
+    @JsonIgnoreProperties("apartamentos")
     private Bloco bloco;
 
     public Apartamento(){

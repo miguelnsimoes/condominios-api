@@ -9,4 +9,6 @@ import java.util.List;
 public interface EncomendaRepository extends JpaRepository<Encomenda, Long> {
 
     List<Encomenda> findByStatus(String status);
+
+    void deleteByApartamento_Id(Long apartamentoId);
 }

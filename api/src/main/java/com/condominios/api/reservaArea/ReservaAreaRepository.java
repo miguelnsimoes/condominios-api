@@ -11,4 +11,6 @@ public interface ReservaAreaRepository extends JpaRepository<ReservaArea, Long> 
 
     boolean existsByAreaComumIdAndDataAndHoraInicioAndHoraFim(
             Long areaId, LocalDate data, LocalTime horaInicio, LocalTime horaFim);
+
+    void deleteByMorador_Id(Long moradorId);
 }
