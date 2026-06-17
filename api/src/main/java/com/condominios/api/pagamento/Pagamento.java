@@ -26,14 +26,18 @@ public class Pagamento {
     @Column(nullable = false)
     private String referencia;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private StatusPagamento status;
+
     @ManyToOne
     @JoinColumn(name = "morador_id")
     private Morador morador;
 
     public Pagamento() {
-
+        this.status = StatusPagamento.PENDENTE;
     }
-    //pra referenciar o mes de pagamento
+
     @PrePersist
     public void prePersist(){
         if(this.dataVencimento == null){
@@ -43,6 +47,8 @@ public class Pagamento {
         if(this.referencia == null){
             this.referencia = LocalDate.now().getYear() + "-" + String.format("%02d", LocalDate.now().getMonthValue());
         }
+        
+        this.status = atualizarEObterStatus();
     }
 
     public Pagamento(BigDecimal valor, Morador morador, LocalDate dataPagamento, LocalDate dataVencimento) {
@@ -50,18 +56,28 @@ public class Pagamento {
         this.morador = morador;
         this.dataPagamento = dataPagamento;
         this.dataVencimento = dataVencimento;
+        this.status = atualizarEObterStatus();
     }
 
-    public StatusPagamento getStatus() {
+    // Método auxiliar interno para calcular o estado da fatura
+    private StatusPagamento atualizarEObterStatus() {
         if (this.dataPagamento != null) {
             return StatusPagamento.PAGO;
         }
-
-        if (LocalDate.now().isAfter(this.dataVencimento)) {
+        if (this.dataVencimento != null && LocalDate.now().isAfter(this.dataVencimento)) {
             return StatusPagamento.ATRASADO;
         }
-
         return StatusPagamento.PENDENTE;
+    }
+
+    // Getter exposto para o Jackson converter para o React perfeitamente
+    public StatusPagamento getStatus() {
+        this.status = atualizarEObterStatus();
+        return this.status;
+    }
+
+    public void setStatus(StatusPagamento status) {
+        this.status = status;
     }
 
     public String getReferencia() {

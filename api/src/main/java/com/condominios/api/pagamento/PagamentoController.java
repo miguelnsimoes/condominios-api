@@ -1,4 +1,5 @@
 package com.condominios.api.pagamento;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -6,6 +7,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/pagamentos")
 public class PagamentoController {
+
     private final PagamentoService pagamentoService;
 
     public PagamentoController(PagamentoService pagamentoService) {
@@ -13,7 +15,10 @@ public class PagamentoController {
     }
 
     @GetMapping
-    public List<Pagamento> getAll(){
+    public List<Pagamento> getAll(@RequestParam(required = false) Long moradorId){
+        if (moradorId != null) {
+            return pagamentoService.findByMoradorId(moradorId);
+        }
         return pagamentoService.getAll();
     }
 
@@ -36,5 +41,4 @@ public class PagamentoController {
     public Pagamento registrarPagamento(@PathVariable Long id){
         return pagamentoService.registrarPagamento(id);
     }
-
 }
