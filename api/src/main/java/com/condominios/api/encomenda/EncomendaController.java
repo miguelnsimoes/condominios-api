@@ -1,4 +1,5 @@
 package com.condominios.api.encomenda;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,7 +15,10 @@ public class EncomendaController {
     }
 
     @GetMapping
-    public List<Encomenda> getAll(){
+    public List<Encomenda> getAll(@RequestParam(required = false) Long apartamentoId){
+        if (apartamentoId != null) {
+            return encomendaService.findByApartamentoId(apartamentoId);
+        }
         return encomendaService.getAll();
     }
 
@@ -37,5 +41,4 @@ public class EncomendaController {
     public Encomenda registrarRetirada(@PathVariable Long id){
         return encomendaService.registrarRetirada(id);
     }
-
 }

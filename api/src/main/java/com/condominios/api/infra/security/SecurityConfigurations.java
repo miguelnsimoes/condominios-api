@@ -25,7 +25,7 @@ public class SecurityConfigurations {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .cors(Customizer.withDefaults()) // Ativa o CORS integrado com as configurações do seu WebMvcConfigurer (CorsConfig)
+                .cors(Customizer.withDefaults()) 
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
@@ -69,7 +69,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.GET, "/encomendas", "/encomendas/**")
                         .hasAnyRole("ADM", "FUNCIONARIO", "MORADOR")
                         .requestMatchers(HttpMethod.POST, "/encomendas", "/encomendas/**")
-                        .hasRole("FUNCIONARIO")
+                        .hasAnyRole("ADM", "FUNCIONARIO") 
                         .requestMatchers(HttpMethod.PUT, "/encomendas", "/encomendas/**")
                         .hasAnyRole("ADM", "FUNCIONARIO")
                         .requestMatchers(HttpMethod.DELETE, "/encomendas", "/encomendas/**")
