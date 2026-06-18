@@ -20,7 +20,7 @@ public class PagamentoService {
     }
 
     public List<Pagamento> findByMoradorId(Long moradorId) {
-        return pagamentoRepository.findByMoradorId(moradorId);
+        return pagamentoRepository.findByMorador_Id(moradorId);
     }
 
     public Pagamento findById(Long id) {

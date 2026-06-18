@@ -10,5 +10,7 @@ public interface EncomendaRepository extends JpaRepository<Encomenda, Long> {
 
     List<Encomenda> findByStatus(String status);
 
+    List<Encomenda> findByApartamento_Id(Long apartamentoId);
+
     void deleteByApartamento_Id(Long apartamentoId);
 }

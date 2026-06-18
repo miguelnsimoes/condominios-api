@@ -24,7 +24,7 @@ public class EncomendaService {
     }
 
     public List<Encomenda> findByApartamentoId(Long apartamentoId) {
-        return encomendaRepository.findByApartamentoId(apartamentoId);
+        return encomendaRepository.findByApartamento_Id(apartamentoId);
     }
 
     public Encomenda findById(Long id) {

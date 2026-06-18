@@ -14,4 +14,6 @@ public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
     List<Pagamento> findByDataPagamentoIsNotNull();
 
     void deleteByMorador_Id(Long moradorId);
+
+    List<Pagamento> findByMorador_Id(Long moradorId);
 }
