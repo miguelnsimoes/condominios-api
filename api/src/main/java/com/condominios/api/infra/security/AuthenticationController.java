@@ -1,13 +1,14 @@
 package com.condominios.api.infra.security;
 
 
+import com.condominios.api.morador.Morador;
+import com.condominios.api.morador.MoradorRepository;
 import com.condominios.api.usuario.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,15 +25,29 @@ public class AuthenticationController {
     private UsuarioRepository repository;
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    private MoradorRepository moradorRepository;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
       var usuarioSenha = new UsernamePasswordAuthenticationToken(data.login(), data.senha());
       var auth = this.authenticationManager.authenticate(usuarioSenha);
 
-      var token = tokenService.generateToken((Usuario)auth.getPrincipal());
+      var usuario = (Usuario) auth.getPrincipal();
+      var token = tokenService.generateToken(usuario);
 
-      return ResponseEntity.ok(new LoginResponseDTO(token));
+      Long moradorId = null;
+      Long apartamentoId = null;
+      var moradorOpt = moradorRepository.findByUsuario_Id(usuario.getId());
+      if (moradorOpt.isPresent()) {
+          Morador morador = moradorOpt.get();
+          moradorId = morador.getId();
+          if (morador.getApartamento() != null) {
+              apartamentoId = morador.getApartamento().getId();
+          }
+      }
+
+      return ResponseEntity.ok(new LoginResponseDTO(token, usuario.getRole().name(), moradorId, apartamentoId));
     }
 
     @PostMapping("/register")
@@ -43,6 +58,13 @@ public class AuthenticationController {
          Usuario newUser = new Usuario(data.login(), encryptedPassword, data.role());
 
             this.repository.save(newUser);
+
+            if (data.role() == UsuarioRole.MORADOR && data.cpf() != null && !data.cpf().isBlank()) {
+                moradorRepository.findByCpf(data.cpf().trim()).ifPresent(morador -> {
+                    morador.setUsuario(newUser);
+                    moradorRepository.save(morador);
+                });
+            }
 
             return ResponseEntity.ok().build();
 

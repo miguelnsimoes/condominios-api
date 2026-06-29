@@ -1,8 +1,10 @@
 package com.condominios.api.bloco;
 
-import com.condominios.api.infra.exception.BusinessException;
+import com.condominios.api.apartamento.ApartamentoRepository;
+import com.condominios.api.apartamento.ApartamentoService;
 import com.condominios.api.infra.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -10,9 +12,16 @@ import java.util.List;
 public class BlocoService {
 
     private final BlocoRepository blocoRepository;
+    private final ApartamentoRepository apartamentoRepository;
+    private final ApartamentoService apartamentoService;
 
-    public BlocoService(BlocoRepository blocoRepository) {
+    public BlocoService(
+            BlocoRepository blocoRepository,
+            ApartamentoRepository apartamentoRepository,
+            ApartamentoService apartamentoService) {
         this.blocoRepository = blocoRepository;
+        this.apartamentoRepository = apartamentoRepository;
+        this.apartamentoService = apartamentoService;
     }
 
     public List<Bloco> getAll() {
@@ -23,13 +32,10 @@ public class BlocoService {
         return blocoRepository.save(bloco);
     }
 
+    @Transactional
     public void delete(Long id) {
-        Bloco bloco = findById(id);
-
-        if (bloco.getApartamentos() != null && !bloco.getApartamentos().isEmpty()) {
-            throw new BusinessException("Não é possível deletar o bloco porque existem apartamentos vinculados a ele");
-        }
-
+        findById(id);
+        apartamentoRepository.findByBlocoId(id).forEach(a -> apartamentoService.delete(a.getId()));
         blocoRepository.deleteById(id);
     }
 

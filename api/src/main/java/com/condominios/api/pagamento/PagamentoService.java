@@ -19,6 +19,10 @@ public class PagamentoService {
         return pagamentoRepository.findAll();
     }
 
+    public List<Pagamento> findByMoradorId(Long moradorId) {
+        return pagamentoRepository.findByMorador_Id(moradorId);
+    }
+
     public Pagamento findById(Long id) {
         return pagamentoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pagamento não encontrado"));

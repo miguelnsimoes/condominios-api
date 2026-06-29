@@ -18,6 +18,10 @@ public class OcorrenciaService {
         return ocorrenciaRepository.findAll();
     }
 
+    public List<Ocorrencia> findByMoradorId(Long moradorId) {
+        return ocorrenciaRepository.findByMorador_Id(moradorId);
+    }
+
     public Ocorrencia findById(Long id) {
         return ocorrenciaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Ocorrência não encontrada"));

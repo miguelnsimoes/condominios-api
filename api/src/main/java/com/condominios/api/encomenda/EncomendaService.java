@@ -23,6 +23,10 @@ public class EncomendaService {
         return encomendaRepository.findAll();
     }
 
+    public List<Encomenda> findByApartamentoId(Long apartamentoId) {
+        return encomendaRepository.findByApartamento_Id(apartamentoId);
+    }
+
     public Encomenda findById(Long id) {
         return encomendaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Encomenda não encontrada"));
